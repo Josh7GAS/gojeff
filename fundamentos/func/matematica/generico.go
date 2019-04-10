@@ -18,3 +18,10 @@ func Divisor(numeroA int, numeroB int) (resultado int) {
 	resultado = numeroA / numeroB
 	return
 }
+
+//Divisor efetua a divisão do numeroA pelo numeroB e devolve o resto
+func DivisorComResto(numeroA int, numeroB int) (resultado int, resto int) {
+	resultado = numeroA / numeroB
+	resto = numeroA % numeroB
+	return
+}

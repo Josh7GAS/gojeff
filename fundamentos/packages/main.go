@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Josh7GAS/gojeff/tree/master/packages/prefixo"
+	"github.com/Josh7GAS/gojeff/packages"
 )
 
 var NomeDoUsuario = "Joshua"

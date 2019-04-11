@@ -1,0 +1,4 @@
+Host     	                    IP	            status	    Descrição
+compliance-omegaintegradorhml  	52.67.30.149	stoped	    o ip na AWS é 172.31.31.69
+Compliance-compliancews-nfe	    18.228.36.159	Disable	    disable no zabbix e não aparece na aws
+compliance-franklin-PRD	        18.231.62.186	running	    Não aparece no Zabbix

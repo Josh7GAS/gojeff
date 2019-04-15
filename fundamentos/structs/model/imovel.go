@@ -2,9 +2,9 @@ package model
 
 ///Imovel Representa informações de um imóvel
 type Imovel struct {
-	X     int
-	Y     int
-	Nome  string
+	X     int    `json:"coordenada_x"`
+	Y     int    `json:"coordenada_Y"`
+	Nome  string `json:"nome"`
 	valor int
 }
 

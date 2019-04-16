@@ -13,7 +13,7 @@ func Multiplicador(x int, y int) int {
 	return x * y
 }
 
-//Divisor efetua a divisão do numeroA eplo numeroB
+//Divisor efetua a divisão do numeroA pelo numeroB
 func Divisor(numeroA int, numeroB int) (resultado int) {
 	resultado = numeroA / numeroB
 	return

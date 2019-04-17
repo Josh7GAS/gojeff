@@ -18,10 +18,10 @@ func main() {
 }
 
 func traduzirParaJSON(nomeArquivo string) {
-	fmt.Println(time.Now(), " -Começando a tradução do arquivo: ", nomeArquivo)
+	fmt.Println(time.Now(), " - Começando a tradução do arquivo: ", nomeArquivo)
 	arquivo, err := os.Open(nomeArquivo + ".csv")
 	if err != nil {
-		fmt.Println("[main] Houve um erro ao ler o arquivo com leitor CSV. Erro: ", err.Error())
+		fmt.Println("[main] Houve um erro ao abrir o arquivo. Erro: ", err.Error())
 		return
 	}
 

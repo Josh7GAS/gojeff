@@ -17,6 +17,8 @@ func main() {
 		return
 	}
 
+
+
 	// scanner := bufio.NewScanner(arquivo)
 	// for scanner.Scan() {
 	// 	linha := scanner.Text
@@ -26,14 +28,13 @@ func main() {
 	leitorCsv := csv.NewReader(arquivo)
 	conteudo, err := leitorCsv.ReadAll()
 	if err != nil {
-		fmt.Println("[main] Houve um erro ao ler o arquivo com leitor CSV. Error: ",
-			err.Error())
+		fmt.Println("[main] Houve um erro ao ler o arquivo com leitor CSV. Error: ",err.Error())
 		return
 	}
 
 	arquivoJson, err := os.Create("cidades.json")
 	if err != nil {
-		fmt.Println("[main] Houve um erro ao criar o arquivo JSON. Erro: ", err.ERRO())
+		fmt.Println("[main] Houve um erro ao criar o arquivo JSON. Erro: ", err.Error())
 		return
 	}
 
@@ -45,8 +46,8 @@ func main() {
 		for indiceItem, item := range linha {
 			dados := strings.Split(item, "/")
 			cidade := model.Cidade{}
-			cidade.Nome := dados[0]
-			cidade.Estado := dados[1]
+			cidade.Nome:=dados[0]
+			cidade.Estado:=dados[1]
 			fmt.Printf("Cidade: %+v\r\n", cidade)
 
 			cidadeJSON:=json.Marshal(cidade)
@@ -64,7 +65,7 @@ func main() {
 	}
 	escritor.WriteString("\r\n]")
 	escritor.Flush()
-	arquivo.JSON.Close()
+	arquivo.Json.Close()
 
 	arquivo.Close()
 }

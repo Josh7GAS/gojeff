@@ -7,14 +7,19 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/Josh7GAS/gojeff/intermediario/goroutines/model"
 )
 
+var orquestrador sync.WaitGroup
+
 func main() {
-	traduzirParaJSON("saopaulo")
-	traduzirParaJSON("riodejaneiro")
+	orquestrador.Add(2)
+	go traduzirParaJSON("saopaulo")
+	go traduzirParaJSON("riodejaneiro")
+	orquestrador.Wait()
 }
 
 func traduzirParaJSON(nomeArquivo string) {
@@ -24,6 +29,7 @@ func traduzirParaJSON(nomeArquivo string) {
 		fmt.Println("[main] Houve um erro ao abrir o arquivo. Erro: ", err.Error())
 		return
 	}
+	defer arquivo.Close()
 
 	leitorCsv := csv.NewReader(arquivo)
 	conteudo, err := leitorCsv.ReadAll()
@@ -31,6 +37,7 @@ func traduzirParaJSON(nomeArquivo string) {
 		fmt.Println("[main] Houve um erro ao ler o arquivo com leitor CSV. Erro: ", err.Error())
 		return
 	}
+	defer arquivo.Close()
 
 	arquivoJSON, err := os.Create(nomeArquivo + ".json")
 	if err != nil {
@@ -46,8 +53,8 @@ func traduzirParaJSON(nomeArquivo string) {
 			cidade := model.Cidade{}
 			cidade.Nome = dados[0]
 			cidade.Estado = dados[1]
-			fmt.Printf("Cidade: %+v\r\n", cidade)
-			cidadeJSON, err := json.Marshal(cidade)
+			fmt.Printf("Cidade: %+v\r\n", cidade.Nome)
+			cidadeJSON, err := json.Marshal(cidade.Nome)
 			if err != nil {
 				fmt.Println("[main] Houve um erro ao gerar o json do item", item, ". Erro: ", err.Error())
 
@@ -64,4 +71,6 @@ func traduzirParaJSON(nomeArquivo string) {
 	arquivoJSON.Close()
 	arquivo.Close()
 	fmt.Println(time.Now(), " - A tradução do arquivo: ", nomeArquivo, "foi finalizada")
+
+	orquestrador.Done()
 }

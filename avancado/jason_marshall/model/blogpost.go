@@ -1,9 +1,9 @@
 package model
 
-//BlogPost armazena dados de um post no Blog
+//Blogpost armazena dados de um post no blog
 type BlogPost struct {
 	UsuarioID int    `json:"userId"`
-	ID        int    `jason:"id"`
-	Titulo    string `jason:"id"`
-	Texto     string `jason:"body"`
+	ID        int    `json:"id"`
+	Titulo    string `json:"title"`
+	Texto     string `json:"text"`
 }

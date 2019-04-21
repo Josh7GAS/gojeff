@@ -29,7 +29,7 @@ func main() {
 		fmt.Println(string(corpo))
 	}
 
-	request, err := http.NewRequest("Get", "https://www.google.com.br/", nil)
+	request, err := http.NewRequest("Get", "https://jsonplaceholder.typicode.com/posts/1", nil)
 	if err != nil {
 		fmt.Println("[main] Erro ao criar um request para o servidor. Erro: ", err.Error())
 		return
@@ -49,7 +49,7 @@ func main() {
 			return
 		}
 		fmt.Println(" ")
-		post := model
+		post := model.BlogPost
 		err = json.Unmarshal(corpo, &post)
 		if err != nil {
 			fmt.Println("[main] Erro ao converter o retorno JSON do Servidor.Erro: ", err.Error())

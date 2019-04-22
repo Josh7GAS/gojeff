@@ -1,0 +1,1 @@
+github.com/Josh7GAS/gojeff/intermediario/goroutines/model

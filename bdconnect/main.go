@@ -10,15 +10,12 @@ import (
 )
 
 func main() {
+	credencial := cfgArquivo()
 
-	db, err := sql.Open("mysql", "root:senha@/testedb")
-	if err != nil {
-		fmt.Println("Deu Erro",
-			err.Error())
-		return
-
-	} else {
-		fmt.Println("Conxão Estabelecida!!!!")
+	fmt.Println(cfgArquivo)
+	db, _ := sql.Open("mysql", cfgArquivo(user)+":"+cfgArquivo(password)+"@/testedb")
+	if db == nil {
+		fmt.Println("Conexão Estabelecida")
 	}
 
 	defer db.Close()
@@ -26,37 +23,73 @@ func main() {
 	err = db.Ping()
 	if err != nil {
 		fmt.Println("Não conseguiu pingar", err.Error())
-	}
-
-	arquivo, err := ini.Load(os.Getenv("HOME") + "/.my.cnf")
-	if err != nil {
-		fmt.Printf("Não foi possível ler o aquivo: %v", err)
-		os.Exit(1)
 	} else {
-
-		// lendoArquivo, err := arquivo.Section("client").Key("hosts").Validate(func(in string) string {
-		// 	if len(in) == 0 {
-		// 		return "default"
-		// 	}
-		// 	return in
-		// })
-
-		fmt.Println("host:", arquivo.Section("client").Key("host").String())
-		fmt.Println("user:", arquivo.Section("client").Key("port").String())
-		fmt.Println("password:", arquivo.Section("client").Key("password").String())
-
-		var
-		( host []string,
-		port []string,
-		password []string
-
-		)
-
+		fmt.Println("Pong")
 	}
+
 }
 
-// [client]
-// host=127.0.0.1
-// port=3306
-// user=root
-// password=senha
+func cfgArquivo() []string {
+	var (
+		credencial []string
+		host       string
+		port       string
+		user       string
+		password   string
+	)
+	arquivo, _ := ini.Load(os.Getenv("HOME") + "/.my.cnf")
+	if arquivo == nil {
+
+		host = arquivo.Section("client").Key("host").Validate(func(in string) string {
+			if len(in) == 0 {
+				return user
+			}
+
+			return in
+		})
+		credencial = append(credencial, host)
+		port = arquivo.Section("client").Key("port").Validate(func(in string) string {
+			if len(in) == 0 {
+				return "default"
+			}
+			return in
+		})
+		credencial = append(credencial, port)
+		user = arquivo.Section("client").Key("user").Validate(func(in string) string {
+			if len(in) == 0 {
+				return "default"
+			}
+			return in
+		})
+		credencial = append(credencial, user)
+		port = arquivo.Section("client").Key("port").Validate(func(in string) string {
+			if len(in) == 0 {
+				return "default"
+			}
+			return in
+		})
+		credencial = append(credencial, port)
+
+	}
+	return credencial
+}
+
+// db, err := sql.Open("mysql", user+":"+ password+"@/testedb")
+// if err != nil {
+// 	fmt.Println("Deu Erro",
+// 		err.Error())
+// 	return
+
+// } else {
+// 	fmt.Println("Conxão Estabelecida!!!!")
+// }
+
+// defer db.Close()
+
+// err = db.Ping()
+// if err != nil {
+// 	fmt.Println("Não conseguiu pingar", err.Error())
+// } else {
+// 	fmt.Println("Pong")
+// }
+//fmt.Println(cfgArquivo(host, port, user, password))

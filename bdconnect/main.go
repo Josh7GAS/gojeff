@@ -45,7 +45,13 @@ func main() {
 		fmt.Println("user:", arquivo.Section("client").Key("port").String())
 		fmt.Println("password:", arquivo.Section("client").Key("password").String())
 
-		var []string = arquivo.Section("client").Key("host")
+		var
+		( host []string,
+		port []string,
+		password []string
+
+		)
+
 	}
 }
 

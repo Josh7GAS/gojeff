@@ -13,14 +13,18 @@ func main() {
 	//credencial := cfgArquivo() Array vinda da função
 	credencial := cfgArquivo()
 
+	//variaveis que alimentam as index da array credencial
 	// host := credencial[0]
 	// port := credencial[1]
 	user := credencial[2]
 	password := credencial[3]
 
+	//conctando o banco de dados
 	db, _ := sql.Open("mysql", user+":"+password+"@/testedb")
 	if db != nil {
+		//caso bem sucedido ira fazer o globalstatus e armazenar em um slice
 
+		//trabalhe aqui com (foor range loop), (Next()), (Ponteiros)
 		mostraGlobalStatus, _ := db.Query("SHOW GLOBAL STATUS;")
 		if mostraGlobalStatus != nil {
 			slice1 := make([]*sql.Rows, 20)
@@ -36,6 +40,8 @@ func main() {
 
 }
 
+//função para avbrir o arquivo .my.cnf e procurar as informações das variaveis, elas são armazenadas na array credencial []string and
+//e são usadad mais tarde quando essa função devolver a array
 func cfgArquivo() []string {
 	var (
 		credencial []string

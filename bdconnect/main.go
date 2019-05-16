@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	//credencial := cfgArquivo() Array vinda da função
 	credencial := cfgArquivo()
 
 	// host := credencial[0]
@@ -19,7 +20,16 @@ func main() {
 
 	db, _ := sql.Open("mysql", user+":"+password+"@/testedb")
 	if db != nil {
-		fmt.Println("Conexão Estabelecida")
+
+		mostraGlobalStatus, _ := db.Query("SHOW GLOBAL STATUS;")
+		if mostraGlobalStatus != nil {
+			slice1 := make([]*sql.Rows, 20)
+			slice1 = append(slice1, mostraGlobalStatus)
+			for _, v := range slice1 {
+				fmt.Println(v)
+			}
+		}
+
 	}
 
 	defer db.Close()
@@ -74,23 +84,3 @@ func cfgArquivo() []string {
 
 	return credencial
 }
-
-// db, err := sql.Open("mysql", user+":"+ password+"@/testedb")
-// if err != nil {
-// 	fmt.Println("Deu Erro",
-// 		err.Error())
-// 	return
-
-// } else {
-// 	fmt.Println("Conxão Estabelecida!!!!")
-// }
-
-// defer db.Close()
-
-// err = db.Ping()
-// if err != nil {
-// 	fmt.Println("Não conseguiu pingar", err.Error())
-// } else {
-// 	fmt.Println("Pong")
-// }
-//fmt.Println(cfgArquivo(host, port, user, password))

@@ -12,20 +12,17 @@ import (
 func main() {
 	credencial := cfgArquivo()
 
-	fmt.Println(cfgArquivo)
-	db, _ := sql.Open("mysql", cfgArquivo(user)+":"+cfgArquivo(password)+"@/testedb")
-	if db == nil {
+	// host := credencial[0]
+	// port := credencial[1]
+	user := credencial[2]
+	password := credencial[3]
+
+	db, _ := sql.Open("mysql", user+":"+password+"@/testedb")
+	if db != nil {
 		fmt.Println("Conexão Estabelecida")
 	}
 
 	defer db.Close()
-
-	err = db.Ping()
-	if err != nil {
-		fmt.Println("Não conseguiu pingar", err.Error())
-	} else {
-		fmt.Println("Pong")
-	}
 
 }
 
@@ -38,16 +35,17 @@ func cfgArquivo() []string {
 		password   string
 	)
 	arquivo, _ := ini.Load(os.Getenv("HOME") + "/.my.cnf")
-	if arquivo == nil {
+	if arquivo != nil {
 
 		host = arquivo.Section("client").Key("host").Validate(func(in string) string {
 			if len(in) == 0 {
-				return user
+				return "default"
 			}
 
 			return in
 		})
 		credencial = append(credencial, host)
+
 		port = arquivo.Section("client").Key("port").Validate(func(in string) string {
 			if len(in) == 0 {
 				return "default"
@@ -55,6 +53,7 @@ func cfgArquivo() []string {
 			return in
 		})
 		credencial = append(credencial, port)
+
 		user = arquivo.Section("client").Key("user").Validate(func(in string) string {
 			if len(in) == 0 {
 				return "default"
@@ -62,15 +61,17 @@ func cfgArquivo() []string {
 			return in
 		})
 		credencial = append(credencial, user)
-		port = arquivo.Section("client").Key("port").Validate(func(in string) string {
+
+		password = arquivo.Section("client").Key("password").Validate(func(in string) string {
 			if len(in) == 0 {
 				return "default"
 			}
 			return in
 		})
-		credencial = append(credencial, port)
+		credencial = append(credencial, password)
 
 	}
+
 	return credencial
 }
 

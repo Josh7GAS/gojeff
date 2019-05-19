@@ -3,17 +3,16 @@ package main
 import (
 	"fmt"
 
-	prefixo "github.com/Josh7GAS/gojeff/fundamentos/packages/prefixo"
-
 	"github.com/Josh7GAS/gojeff/fundamentos/packages/operadora"
+	"github.com/Josh7GAS/gojeff/fundamentos/packages/prefixos"
 )
 
-var NomeDoUsuario = "Joshua"
+//NomedoUsusario do sistema
+var NomedoUsusario = "Joshua"
 
 func main() {
-	fmt.Printf("Nome do usuario: %s\r\n", NomeDoUsuario)
-	fmt.Printf("Prefixo da Capital: %d\r\n", prefixo.Capital)
-	fmt.Printf("Nome de operadora: %s\r\n", operadora.NomeOperadora)
-	//fmt.Printf("Valor de teste: %s\r\n", prefixo.teste)
-	fmt.Printf("Teste Com Prefixo: %s\r\n", prefixo.TesteComPrefixo)
+	fmt.Printf("Nome do usuario: %s\r\n", NomedoUsusario)
+	fmt.Printf("Prefixo da Capital: %d\r\n", prefixos.Capital)
+	fmt.Printf("Prefixo da Capital: %s\r\n", operadora.NomeOperadora)
+
 }

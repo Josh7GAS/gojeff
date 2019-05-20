@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+//Imovel é uma strucut que aramazena dados de um imovel
 type Imovel struct {
 	X     int
 	Y     int

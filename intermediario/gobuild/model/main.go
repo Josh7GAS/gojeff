@@ -12,7 +12,7 @@ func main() {
 	casa.Nome = "Casa Amarela"
 	casa.X = 18
 	casa.Y = 25
-	if err := casa.SetValor(11000000); err != nil {
+	if err := casa.SetValor(11000); err != nil {
 		fmt.Println("[main] houve um erro na atribuição de valor a casa: ", err.Error())
 		if err == model.ErrValorDeImovelMuitoAlto {
 			fmt.Println("Corretor, Por favor verifique a sua avaliação")
